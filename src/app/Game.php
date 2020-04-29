@@ -47,6 +47,7 @@ class Game
             $this->winner = $this->hero;
         } else if($dujmanHealth <= 0) {
             $this->winner = $this->hero;
+            $this->gameOver = true;
         }
         
         //TODO: treat case?

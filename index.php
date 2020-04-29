@@ -14,8 +14,10 @@ spl_autoload_register(function ($className) {
     }
 });
 
-$hero = HeroFactory::create();
-$dujman = DujmanFactory::create();
+
+$game = new Game();
+
+$game->start();
 
 // You’ll have to simulate a battle between Stanhope and a wild beast, either at command line or using a web browser.
 // On every battle, Stanhope and the beast must be initialized with random properties, within their ranges.
@@ -36,5 +38,4 @@ $dujman = DujmanFactory::create();
  * If we have a winner before the maximum number of rounds is reached, he must be declared.
  */
 
-echo($hero->getHealth());
 
