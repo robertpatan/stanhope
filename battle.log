@@ -1,0 +1,84 @@
+Hero hit with 30 damage
+---------- Start round  1 ----------
+Turn: Dujman
+Enemy hit with 18 damage
+Hero health:65
+---------- End round  1 ----------
+
+---------- Start round  2 ----------
+Turn: Hero
+Hero hit with 21 damage
+Enemy health:67
+---------- End round  2 ----------
+
+---------- Start round  3 ----------
+Turn: Dujman
+Enemy hit with 18 damage
+Hero health:47
+---------- End round  3 ----------
+
+---------- Start round  4 ----------
+Turn: Hero
+Dujman got lucky, Hero missed.
+Enemy health:67
+---------- End round  4 ----------
+
+---------- Start round  5 ----------
+Turn: Dujman
+Hero got lucky, enemy missed.
+Hero health:47
+---------- End round  5 ----------
+
+---------- Start round  6 ----------
+Turn: Hero
+Dujman got lucky, Hero missed.
+Enemy health:67
+---------- End round  6 ----------
+
+---------- Start round  7 ----------
+Turn: Dujman
+Enemy hit with 18 damage
+Hero health:29
+---------- End round  7 ----------
+
+---------- Start round  8 ----------
+Turn: Hero
+Dujman got lucky, Hero missed.
+Enemy health:67
+---------- End round  8 ----------
+
+---------- Start round  9 ----------
+Turn: Dujman
+Enemy hit with 0 damage
+Hero health:29
+---------- End round  9 ----------
+
+---------- Start round  10 ----------
+Turn: Hero
+Dujman got lucky, Hero missed.
+Enemy health:67
+---------- End round  10 ----------
+
+---------- Start round  11 ----------
+Turn: Dujman
+Enemy hit with 18 damage
+Hero health:11
+---------- End round  11 ----------
+
+---------- Start round  12 ----------
+Turn: Hero
+Dujman got lucky, Hero missed.
+Enemy health:67
+---------- End round  12 ----------
+
+---------- Start round  13 ----------
+Turn: Dujman
+Enemy hit with 18 damage
+Hero health:0
+---------- End round  13 ----------
+
+GAME OVER
+
+Total moves: 14
+Whe winner is: Dujman
+Enemy hit with 25 damage
