@@ -2,6 +2,9 @@
 
 class Hero extends Character
 {
+    protected $skills;
+    
+    
     public function __construct(
         $health = 0,
         $strength = 0,
@@ -17,11 +20,10 @@ class Hero extends Character
         $this->luck = $luck;
     }
     
-    public function attack(Character $enemy)
+    public function setSkill($skills = [])
     {
-        $damage = $this->strength - $enemy->getDefense();
-        
-        return $damage;
+        $this->skills = $skills;
     }
+    
     
 }

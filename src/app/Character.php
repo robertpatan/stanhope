@@ -32,7 +32,7 @@ class Character {
     }
     
     public  function defend($dujmanStrength) {
-        $this->health -=$dujmanStrength;
+        $this->health -= $dujmanStrength - $this->defense;
     }
    
 

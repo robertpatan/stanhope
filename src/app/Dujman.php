@@ -15,10 +15,4 @@ class Dujman extends Character {
         $this->speed = $speed;
         $this->luck = $luck;
     }
-    
-    public function attack(Character $hero)
-    {
-        return $this->strength - $hero->getDefense();
-    }
-
 }
