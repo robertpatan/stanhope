@@ -5,8 +5,8 @@ class HeroFactory
 {
     public static function create() {
         $skills = [
-            new RapidStrike(),
-            new MagicShield()
+            SkillFactory::create('RapidStrike', 10),
+            SkillFactory::create('MagicShield', 20),
         ];
         
         $hero = new Hero(
