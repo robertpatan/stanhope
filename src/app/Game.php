@@ -6,50 +6,73 @@ class Game
     const MAX_MOVES = 20;
     
     protected $hero;
-    protected $dujman;
+    protected $enemy;
     protected $currentTurn;
     protected $gameOver = false;
     protected $winner;
-    protected $moves = 0;
+    protected $moves = 1;
     
     public function __construct()
     {
         $this->hero = HeroFactory::create();
-        $this->dujman = DujmanFactory::create();
+        $this->enemy = DujmanFactory::create();
     }
     
     public function start()
     {
         $this->setFirstTurn();
-    
-        Log::getInstance()->info('Turn: ' . $this->currentTurn);
         
         while (!$this->gameOver) {
-            $this->setTurn();
-    
+            Log::getInstance()->info('---------- Start round  ' . $this->moves . ' ----------');
             Log::getInstance()->info('Turn: ' . $this->currentTurn);
             
-            $this->checkIfGameIsOver();
+            $this->playTurn();
+            
+            $this->checkIfGameOver();
+            
+            Log::getInstance()->info('---------- End round  ' . $this->moves . ' ----------' . PHP_EOL);
             
             $this->moves++;
+            
         }
-    
-        Log::getInstance()->info('Whe winner is: ' . get_class($this->winner));
         
-        return $this->winner;
+        Log::getInstance()->info('GAME OVER' . PHP_EOL);
+        
+        Log::getInstance()->info('Total moves: ' . $this->moves);
+        
+        
+        
+        if ($this->winner) {
+            Log::getInstance()->info('Whe winner is: ' . get_class($this->winner));
+        } else {
+            Log::getInstance()->info('It\'s a tie');
+        }
+        
+        return;
     }
     
-    protected function checkIfGameIsOver()
+    /**
+     *
+     */
+    protected function checkIfGameOver()
     {
         $heroHealth = $this->hero->getHealth();
-        $dujmanHealth = $this->dujman->getHealth();
+        $enemyHealth = $this->enemy->getHealth();
         
         if ($this->moves === self::MAX_MOVES) {
             $this->gameOver = true;
+            
+            if ($heroHealth > $enemyHealth) {
+                $this->winner = $this->hero;
+            } elseif ($heroHealth < $enemyHealth) {
+                $this->winner = $this->enemy;
+            } else {
+                $this->winner = null;
+            }
         } elseif ($heroHealth <= 0) {
-            $this->winner = $this->hero;
+            $this->winner = $this->enemy;
             $this->gameOver = true;
-        } elseif ($dujmanHealth <= 0) {
+        } elseif ($enemyHealth <= 0) {
             $this->winner = $this->hero;
             $this->gameOver = true;
         }
@@ -57,44 +80,55 @@ class Game
         //TODO: treat case?
     }
     
-    protected function setTurn() {
-    
-        Log::getInstance()->info('Hero health:' . $this->hero->getHealth());
-        Log::getInstance()->info('Dujman health:' . $this->dujman->getHealth());
-    
-        //hero turn
+    /**
+     * @throws Exception
+     */
+    protected function playTurn()
+    {
         if ($this->currentTurn === get_class($this->hero)) {
-            Log::getInstance()->info('hero turn');
-            $this->hero->attack($this->dujman);
-            $this->currentTurn = get_class($this->dujman);
-            //dujman turn
-        } elseif ($this->currentTurn === get_class($this->dujman)) {
-            Log::getInstance()->info('dujman turn');
-            $this->dujman->attack($this->hero);
+            
+            $damage = $this->hero->attack($this->enemy->getDefense());
+            $this->enemy->defend($damage);
+            $this->currentTurn = get_class($this->enemy);
+            
+            Log::getInstance()->info('Enemy health:' . $this->enemy->getHealth());
+            
+        } elseif ($this->currentTurn === get_class($this->enemy)) {
+            
+            $this->hero->defend($this->enemy->getStrength());
             $this->currentTurn = get_class($this->hero);
+            
+            Log::getInstance()->info('Hero health:' . $this->hero->getHealth());
+            
         } else {
-            Log::getInstance()->info('else turn');
-            //todo: throw exception
+            throw new Exception('No one\'s turn? How can this be?');
         }
     }
     
+    /**
+     * 
+     */
     protected function setFirstTurn()
     {
         $heroSpeed = $this->hero->getSpeed();
         $heroLuck = $this->hero->getLuck();
-        $dujmanSpeed = $this->dujman->getSpeed();
-        $dujmanLuck = $this->dujman->getLuck();
+        $enemySpeed = $this->enemy->getSpeed();
+        $enemyLuck = $this->enemy->getLuck();
         
-        if ($heroSpeed > $dujmanSpeed) {
+        if ($heroSpeed > $enemySpeed) {
             $this->currentTurn = get_class($this->hero);
-        } elseif ($heroSpeed < $dujmanSpeed) {
-            $this->currentTurn = get_class($this->dujman);
-        } elseif ($heroLuck > $dujmanLuck) {
+        } elseif ($heroSpeed < $enemySpeed) {
+            $this->currentTurn = get_class($this->enemy);
+        } elseif ($heroLuck > $enemyLuck) {
             $this->currentTurn = get_class($this->hero);
-        } elseif ($dujmanLuck > $heroLuck) {
-            $this->currentTurn = get_class($this->dujman);
-        } else {
-            //todo:
+        } elseif ($enemyLuck > $heroLuck) {
+            $this->currentTurn = get_class($this->enemy);
+        } else {//randomize
+            if (mt_rand(0, 1) === 0) {
+                $this->currentTurn = get_class($this->hero);
+            } else {
+                $this->currentTurn = get_class($this->enemy);
+            }
         }
     }
     

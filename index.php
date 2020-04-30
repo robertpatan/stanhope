@@ -19,6 +19,8 @@ $game = new Game();
 
 $game->start();
 
+echo Log::getLogContent();
+
 // You’ll have to simulate a battle between Stanhope and a wild beast, either at command line or using a web browser.
 // On every battle, Stanhope and the beast must be initialized with random properties, within their ranges.
 

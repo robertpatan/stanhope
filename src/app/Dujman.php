@@ -15,4 +15,22 @@ class Dujman extends Character {
         $this->speed = $speed;
         $this->luck = $luck;
     }
+    
+    public function attack($defenderDefense) {
+        return $defenderDefense - $this->strength;
+    }
+    
+    public  function defend($damage) {
+    
+        if ($this->isLucky()) {
+            $damage = 0;
+            Log::getInstance()->info('Dujman got lucky, Hero missed.');
+        } else {
+            Log::getInstance()->info('Hero hit with ' . $damage . ' damage');
+        }
+    
+        $this->takeDamage($damage);
+        
+        return $damage;
+    }
 }

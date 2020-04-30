@@ -3,7 +3,7 @@
 
 class SkillFactory
 {
-    public static function create($skillName, $chance) {
-        return new $skillName($chance);
+    public static function create($skillName, $chance, $type) {
+        return new $skillName($chance, $type);
     }
 }
