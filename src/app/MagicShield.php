@@ -8,6 +8,10 @@ class MagicShield  extends Skill
         parent::__construct($chance, $type);
     }
     
+    /**
+     * @param Character $character
+     * @return Character
+     */
     public function apply(Character $character) {
         
         $enhanced = clone $character;

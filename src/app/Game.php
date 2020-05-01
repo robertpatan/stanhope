@@ -15,11 +15,23 @@ class Game
     public function __construct()
     {
         $this->hero = HeroFactory::create();
-        $this->enemy = DujmanFactory::create();
+        $this->enemy = EnemyFactory::create();
     }
     
+    /**
+     * @throws Exception
+     */
     public function start()
     {
+        Log::getInstance()->info('Battle begins!' . PHP_EOL);
+        
+        Log::getInstance()->info('Hero stats:');
+        Log::getInstance()->info($this->hero->getStatsString() . PHP_EOL);
+        Log::getInstance()->info($this->hero->getSkillsString());
+        
+        Log::getInstance()->info('Enemy stats:');
+        Log::getInstance()->info($this->enemy->getStatsString() . PHP_EOL);
+        
         $this->setFirstTurn();
         
         while (!$this->gameOver) {
@@ -41,18 +53,24 @@ class Game
         Log::getInstance()->info('Total moves: ' . $this->moves);
         
         
-        
         if ($this->winner) {
-            Log::getInstance()->info('Whe winner is: ' . get_class($this->winner));
+            Log::getInstance()->info('Whe winner is: ' . get_class($this->winner) . PHP_EOL);
         } else {
-            Log::getInstance()->info('It\'s a tie');
+            Log::getInstance()->info('It\'s a tie' . PHP_EOL);
         }
+        
+        Log::getInstance()->info('Hero stats:');
+        Log::getInstance()->info($this->hero->getStatsString() . PHP_EOL);
+        
+        Log::getInstance()->info('Enemy stats:');
+        Log::getInstance()->info($this->enemy->getStatsString() . PHP_EOL);
+        
         
         return;
     }
     
     /**
-     *
+     * 
      */
     protected function checkIfGameOver()
     {
@@ -106,7 +124,7 @@ class Game
     }
     
     /**
-     * 
+     * @throws Exception
      */
     protected function setFirstTurn()
     {
@@ -115,19 +133,22 @@ class Game
         $enemySpeed = $this->enemy->getSpeed();
         $enemyLuck = $this->enemy->getLuck();
         
+        $heroClass = get_class($this->hero);
+        $enemyClass = get_class($this->enemy);
+        
         if ($heroSpeed > $enemySpeed) {
-            $this->currentTurn = get_class($this->hero);
+            $this->currentTurn = $heroClass;
         } elseif ($heroSpeed < $enemySpeed) {
-            $this->currentTurn = get_class($this->enemy);
+            $this->currentTurn = $enemyClass;
         } elseif ($heroLuck > $enemyLuck) {
-            $this->currentTurn = get_class($this->hero);
+            $this->currentTurn = $heroClass;
         } elseif ($enemyLuck > $heroLuck) {
-            $this->currentTurn = get_class($this->enemy);
+            $this->currentTurn = $enemyClass;
         } else {//randomize
-            if (mt_rand(0, 1) === 0) {
-                $this->currentTurn = get_class($this->hero);
+            if (random_int(0, 1) === 0) {
+                $this->currentTurn = $heroClass;
             } else {
-                $this->currentTurn = get_class($this->enemy);
+                $this->currentTurn = $enemyClass;
             }
         }
     }

@@ -8,9 +8,11 @@ class RapidStrike extends Skill
         parent::__construct($chance, $type);
     }
     
+    /**
+     * @param Character $character
+     * @return Character
+     */
     public function apply(Character $character) {
-        Log::getInstance()->info(get_class($this) . ' has been used');
-        
         $enhanced = clone $character;
         $enhanced->setStrength($character->getStrength() *  2);
         

@@ -1,6 +1,6 @@
 <?php
 
-class Dujman extends Character {
+class Enemy extends Character {
     public function __construct(
         $health = 0,
         $strength = 0,
@@ -16,15 +16,26 @@ class Dujman extends Character {
         $this->luck = $luck;
     }
     
+    /**
+     * @param $defenderDefense
+     * @return int|mixed
+     */
     public function attack($defenderDefense) {
-        return $defenderDefense - $this->strength;
+        $damage = $this->strength - $defenderDefense;
+        
+        return $damage < 0 ? 0 : $damage;
     }
     
+    /**
+     * @param $damage
+     * @return int|mixed
+     * @throws Exception
+     */
     public  function defend($damage) {
     
         if ($this->isLucky()) {
             $damage = 0;
-            Log::getInstance()->info('Dujman got lucky, Hero missed.');
+            Log::getInstance()->info('Enemy got lucky, Hero missed.');
         } else {
             Log::getInstance()->info('Hero hit with ' . $damage . ' damage');
         }

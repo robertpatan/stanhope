@@ -19,6 +19,9 @@ class Hero extends Character
         $this->luck = $luck;
     }
     
+    /**
+     * @return array
+     */
     public function getSkills()
     {
         return $this->skills;
@@ -38,11 +41,17 @@ class Hero extends Character
         
     }
     
+    /**
+     * @return bool
+     */
     public function hasSkills()
     {
         return count($this->skills) > 0;
     }
     
+    /**
+     * @return array
+     */
     protected function getAttackSkills()
     {
         return array_filter($this->skills, function ($skill) {
@@ -50,11 +59,36 @@ class Hero extends Character
         });
     }
     
+    /**
+     * @return array
+     */
     protected function getDefenseSkills()
     {
         return array_filter($this->skills, function ($skill) {
             return $skill->getType() === Skill::DEFENSE_SKILL;
         });
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSkillsString()
+    {
+        $string = '';
+        
+        foreach ($this->skills as $skill) {
+            $skillName = get_class($skill);
+            $chance = $skill->getChance();
+            $type = $skill->getType();
+            
+            $string .= <<<EOT
+    Skill $skillName
+        Chance: $chance
+        Type: $type \n
+EOT;
+        }
+        
+        return $string;
     }
     
     
@@ -68,6 +102,7 @@ class Hero extends Character
         
         foreach ($this->getAttackSkills() as $skill) {
             if ($skill->hasTriggered()) {
+                Log::getInstance()->info('Hero used ' . get_class($skill));
                 $hero = $skill->apply($hero);
             }
         }
@@ -77,7 +112,11 @@ class Hero extends Character
         return $damage < 0 ? 0 : $damage;
     }
     
-    
+    /**
+     * @param $attackerStrength
+     * @return int|mixed
+     * @throws Exception
+     */
     public function defend($attackerStrength)
     {
         $damage = 0;
@@ -87,6 +126,7 @@ class Hero extends Character
             
             foreach ($this->getDefenseSkills() as $skill) {
                 if ($skill->hasTriggered()) {
+                    Log::getInstance()->info('Hero used ' . get_class($skill));
                     $hero = $skill->apply($hero);
                 }
             }

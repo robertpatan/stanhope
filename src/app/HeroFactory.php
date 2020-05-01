@@ -3,6 +3,10 @@
 
 class HeroFactory
 {
+    /**
+     * @return Hero
+     * @throws Exception
+     */
     public static function create() {
         $skills = [
             SkillFactory::create('RapidStrike', 10, Skill::ATTACK_SKILL),
@@ -10,11 +14,11 @@ class HeroFactory
         ];
         
         $hero = new Hero(
-            mt_rand(70, 100),
-            mt_rand(70, 80),
-            mt_rand(45, 55),
-            mt_rand(40, 50),
-            mt_rand(10, 30)
+            random_int(70, 100),
+            random_int(70, 80),
+            random_int(45, 55),
+            random_int(40, 50),
+            random_int(10, 30)
         );
         
         $hero->setSkill($skills);

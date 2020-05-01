@@ -6,6 +6,9 @@ class Log
     private static $instance = null;
     private static $file;
     
+    /**
+     * @return null
+     */
     public static function getInstance()
     {
         $dir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
@@ -57,10 +60,17 @@ class Log
     
     }
     
+    /**
+     * Deletes log file
+     */
     public static function deleteLog() {
         unlink(self::$file);
     }
     
+    /**
+     * Gets log file content
+     * @return false|string
+     */
     public static function getLogContent() {
         return file_get_contents(self::$file);
     }

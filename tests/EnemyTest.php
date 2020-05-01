@@ -11,7 +11,7 @@ final class EnemyTest extends \PHPUnit\Framework\TestCase
         parent::__construct($name, $data, $dataName);
         
         
-        $this->enemy = new Dujman(
+        $this->enemy = new Enemy(
             70,
             70,
             45,
@@ -21,8 +21,8 @@ final class EnemyTest extends \PHPUnit\Framework\TestCase
     }
     
     public function testCreate() {
-        $this->assertInstanceOf(Dujman::class,
-            new Dujman(
+        $this->assertInstanceOf(Enemy::class,
+            new Enemy(
                 70,
                 70,
                 45,
