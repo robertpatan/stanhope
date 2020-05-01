@@ -57,7 +57,8 @@ class Log
     
         fwrite($filePointer, $message . PHP_EOL);
         fclose($filePointer);
-    
+        
+        return;
     }
     
     /**
@@ -65,6 +66,7 @@ class Log
      */
     public static function deleteLog() {
         unlink(self::$file);
+        return;
     }
     
     /**
